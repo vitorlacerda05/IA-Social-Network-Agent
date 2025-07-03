@@ -2,6 +2,8 @@
 
 Um agente inteligente que usa IA (Google Gemini) para otimizar descrições de posts e maximizar o engajamento nas redes sociais.
 
+![image](https://github.com/user-attachments/assets/29d1b636-5531-4bba-9f14-24d856f811d9)
+
 ## ✨ Funcionalidades
 
 - **Otimização Inteligente**: Usa IA para transformar descrições simples em posts envolventes
@@ -41,14 +43,13 @@ GEMINI_MODEL=gemini-pro
 
 ### Interface Web (Recomendado)
 
-Use:
-```bash
-pip instal -r requirements.txt
-```
-
 Para rodar:
 ```bash
 streamlit run app.py
+```
+Ou, diretamente pelo Python
+```bash
+python -m streamlit run app.py
 ```
 
 Acesse `http://localhost:8501` no seu navegador.
@@ -194,9 +195,6 @@ social-network-agent/
 4. Push para a branch
 5. Abra um Pull Request
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
 ## 🆘 Suporte
 
