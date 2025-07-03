@@ -1,0 +1,27 @@
+[
+  {
+    "description": "Hoje vou compartilhar dicas de marketing digital",
+    "platform": "instagram",
+    "context": "Público: empreendedores iniciantes, Objetivo: gerar engajamento"
+  },
+  {
+    "description": "A importância da liderança nas empresas modernas",
+    "platform": "linkedin",
+    "context": "Público: executivos e gestores, Objetivo: networking profissional"
+  },
+  {
+    "description": "Novo produto lançado com desconto especial",
+    "platform": "twitter",
+    "context": "Público: consumidores interessados em tecnologia, Objetivo: vendas"
+  },
+  {
+    "description": "Dicas para melhorar a produtividade no trabalho",
+    "platform": "instagram",
+    "context": "Público: profissionais de todas as áreas, Objetivo: compartilhar conhecimento"
+  },
+  {
+    "description": "Como construir uma marca pessoal forte",
+    "platform": "linkedin",
+    "context": "Público: profissionais em busca de crescimento, Objetivo: posicionamento"
+  }
+] 
