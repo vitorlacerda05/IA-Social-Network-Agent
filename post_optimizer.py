@@ -1,6 +1,8 @@
 import google.generativeai as genai
 from config import Config
 import logging
+import time
+import random
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -47,14 +49,38 @@ class PostOptimizer:
             if additional_context:
                 base_prompt += f"\n\nContexto adicional: {additional_context}"
             
-            # Gerar resposta otimizada
-            response = self.model.generate_content(
-                base_prompt,
-                generation_config=genai.types.GenerationConfig(
-                    temperature=Config.TEMPERATURE,
-                    max_output_tokens=Config.MAX_TOKENS
-                )
-            )
+            # Gerar resposta otimizada com retry automático
+            max_retries = 3
+            base_delay = 6  # 6 segundos base (10 req/min = 1 req a cada 6 segundos)
+            
+            for attempt in range(max_retries):
+                try:
+                    response = self.model.generate_content(
+                        base_prompt,
+                        generation_config=genai.types.GenerationConfig(
+                            temperature=Config.TEMPERATURE,
+                            max_output_tokens=Config.MAX_TOKENS
+                        )
+                    )
+                    break  # Sucesso, sair do loop
+                    
+                except Exception as e:
+                    error_msg = str(e)
+                    if "429" in error_msg and attempt < max_retries - 1:
+                        # Erro de quota, aguardar e tentar novamente
+                        if "GenerateRequestsPerMinute" in error_msg:
+                            wait_time = base_delay + random.randint(2, 5)  # 6-11 segundos
+                        elif "GenerateRequestsPerDay" in error_msg:
+                            wait_time = 3600  # 1 hora
+                        else:
+                            wait_time = base_delay * 2 + random.randint(5, 15)  # 17-27 segundos
+                        
+                        logger.warning(f"Limite de quota atingido. Aguardando {wait_time} segundos antes da tentativa {attempt + 2}...")
+                        time.sleep(wait_time)
+                        continue
+                    else:
+                        # Outro erro ou última tentativa, re-raise
+                        raise e
             
             optimized_description = response.text.strip()
             
